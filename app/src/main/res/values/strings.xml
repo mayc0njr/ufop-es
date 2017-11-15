@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Encontro de Saberes</string>
+
+    TwoTapsBackAppCompatActivityvity-->
+    <string name="exit_press">Pressione Voltar novamente para sair</string>
+    <!--Login Activity-->
+    <string name="loginHint">CPF</string>
+    <string name="passwordHint">Senha</string>
+    <string name="loginButton">Entrar</string>
+    <string name="registerButton">Cadastrar</string>
+    <string name="authFail">CPF ou senha incorretos.</string>
+    <string name="authOk">Autenticado com sucesso.</string>
+    <string name="authError">Falha na Comuncação com o Servidor.</string>
+    <string name="connecting">Conectando...</string>
+    <string name="logoSubtitle">Encontro de Saberes</string>
+
+    <!--Dados Activity-->
+    <string name="dados_title">Dados</string>
+
+    <!--Trabalho Row-->
+    <string name="idTrabalho">ID:</string>
+    <string name="autorPrincipal">Autor Principal:</string>
+    <string name="titulo">Título:</string>
+    <string name="palavrasChave">Palavras-chave:</string>
+    <string name="nomeApresentador">Apresentador:</string>
+    <string name="votedSubtitle">Você já votou neste trabalho.</string>
+
+    <!--Select Activity-->
+    <string name="searching">Buscando Trabalhos.</string>
+    <string name="exit">Sair</string>
+
+    <!--Trabalho Activity-->
+    <string name="waiting">Aguardando o Servidor...</string>
+    <string name="trabTitulo">Titulo da Coisa</string>
+    <string name="trabInfo">Informações</string>
+    <string name="labelDummy">Criterio:</string>
+    <string name="valueDummy">7</string>
+    <string name="seekMax">5</string>
+    <string name="seekMin">0</string>
+    <string name="salvarVoto">Confirmar Voto</string>
+    <string name="alterarVoto">Alterar Voto</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="textOk">Voto enviado com sucesso.</string>
+    <string name="textError">Falha na Comuncação com o Servidor.</string>
+    <string name="textPremiado">Considera que este trabalho deva ser premiado?</string>
+    <string name="textSim">Sim</string>
+    <string name="textNao">Não</string>
+    <string name="textComo">Como:</string>
+    <string name="textMelhor">Melhor Trabalho</string>
+    <string name="textMencao">Menção Honrosa</string>
+    <string name="textJustifique">Justificar o motivo da premiação:</string>
+    <string name="textClareza">Domínio e clareza do trabalho apresentado</string>
+    <string name="textPesquisador">Potencial do apresentador em ser um pesquisador</string>
+    <string name="textRelevancia">Capacidade de mostrar a relevância do trabalho apresentado</string>
+    <string name="textCritica">Capacidade de avaliação crítica sobre o trabalho apresentado</string>
+    <string name="textOutro">Outro:</string>
+</resources>

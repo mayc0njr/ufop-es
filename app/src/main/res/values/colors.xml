@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#CF0000</color>
+    <color name="colorPrimaryDark">#5F0000</color>
+    <color name="colorAccent">#000000</color>
+    <color name="colorDetail">#FFFFFF</color>
+    <color name="mainTextColor">#FFFFFF</color>
+    <color name="secondTextColor">#000000</color>
+    <color name="colorDivider">#3F000000</color>
+    <color name="rowBorderUnselected">#3F3F3F</color>
+    <color name="rowBackground">#E7E7E7</color>
+    <color name="dialogBackground">#BF000000</color>
+    <color name="colorAlpha">#00000000</color>
+    <color name="colorGolden">#FFD700</color>
+    <!--<color name="border_selected">#CF0000</color>-->
+</resources>

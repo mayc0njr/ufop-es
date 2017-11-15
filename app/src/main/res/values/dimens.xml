@@ -1,0 +1,46 @@
+<resources>
+    <!--Default size of Horizontal Margin of activities-->
+    <dimen name="activityHorizontalMargin">16dp</dimen>
+
+    <!--Default size of Vertical Margin of activities-->
+    <dimen name="activityVerticalMargin">16dp</dimen>
+
+    <!--Distance between the text and the ring of the progress bar.-->
+    <dimen name="progressSeparator">4dp</dimen>
+
+    <!--size of corners (round borders) of rows.-->
+    <dimen name="rowCorner">5dp</dimen>
+
+    <!--Padding of rows.-->
+    <dimen name="rowPadding">4dp</dimen>
+
+    <!--Width for separate field in rows/components-->
+    <dimen name="fieldSeparator">2dp</dimen>
+
+    <!--Width for border of listview's rows-->
+    <dimen name="rowBorderWidth">2dp</dimen>
+
+    <!--text size for trab title.-->
+    <dimen name="tituloSize">20sp</dimen>
+
+    <!--text size for trab info-->
+    <dimen name="textSize">16sp</dimen>
+
+    <!--Height filled of the Divider-->
+    <dimen name="dividerHeight">2dp</dimen>
+
+    <!--Margin of the divider and other components (vertical)-->
+    <dimen name="dividerMargin">4dp</dimen>
+
+    <!--Margin between a field label and it's content-->
+    <dimen name="labelMargin">2dp</dimen>
+
+    <!--Distance between headers and following components-->
+    <dimen name="headerSeparator">4dp</dimen>
+
+    <!--Margin between seekbars on TrabalhoActivity-->
+    <dimen name="seeksMargin">32dp</dimen>
+
+    <!--Margin between button and componentes on TrabalhoActivity-Criterios-->
+    <dimen name="buttonMargin">4dp</dimen>
+</resources>

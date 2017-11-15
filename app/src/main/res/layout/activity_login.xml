@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg_selector"
+    android:paddingLeft="@dimen/activityHorizontalMargin"
+    android:paddingRight="@dimen/activityHorizontalMargin"
+    android:paddingBottom="@dimen/activityVerticalMargin"
+    android:paddingTop="@dimen/activityVerticalMargin"
+    android:onClick="hideKeyboard"
+    tools:context="br.ufop.icea.encontrodesaberes.view.LoginActivity">
+    <ImageView
+        android:id="@+id/imageBigLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/progressSeparator"
+        android:layout_above="@+id/layoutLogin"
+        android:src="@drawable/encontro_big_logo"
+        android:contentDescription="@string/logoSubtitle" />
+    <LinearLayout
+        android:id="@+id/layoutLogin"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/progressSeparator"
+            android:background="@android:drawable/edit_text"
+            android:hint="@string/loginHint"
+            android:inputType="number"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/progressSeparator"
+            android:background="@android:drawable/edit_text"
+            android:hint="@string/passwordHint"
+            android:textSize="20sp"
+            android:imeOptions="actionGo"
+            android:inputType="textPassword"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/buttonSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/layoutLogin"
+        android:layout_alignLeft="@+id/layoutLogin"
+        android:layout_below="@id/layoutLogin"
+        android:text="@string/loginButton"
+        android:onClick="authenticate"/>
+    <!--<TextView-->
+    <!--android:id="@+id/textSignUp"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_alignLeft="@+id/layoutSignIn"-->
+    <!--android:textAlignment="center"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:layout_below="@id/textForget"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/main_text_color"-->
+    <!--android:text="@string/register_button"/>-->
+
+    <TextView
+        android:id="@+id/textConnecting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/progressSeparator"
+        android:visibility="gone"
+        android:text="@string/connecting"
+        android:textColor="@color/mainTextColor"/>
+    <ProgressBar
+        android:id="@+id/progressConnecting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/textConnecting"
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/custom_progress_bar"/>
+
+</RelativeLayout>

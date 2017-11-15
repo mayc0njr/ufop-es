@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  res/drawable/rounded_corner_view.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="line" android:padding="@dimen/rowBorderWidth">
+    <solid android:color="@color/rowBackground"/>
+</shape>

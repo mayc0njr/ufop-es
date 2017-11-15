@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="defaultCriterioMax">5</integer>
+    <integer name="defaultCriterioMin">0</integer>
+    <integer name="defaultCriterioStep">1</integer>
+    <integer name="exit_time">3000</integer>
+</resources>
