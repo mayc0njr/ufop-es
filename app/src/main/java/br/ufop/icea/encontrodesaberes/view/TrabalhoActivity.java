@@ -18,6 +18,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import br.com.albeom.nymeria.WebServerCallback;
 import br.com.albeom.nymeria.view.TwoTapsBackAppCompatActivity;
 import br.ufop.icea.encontrodesaberes.R;
@@ -41,6 +45,14 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
     Toast votoOk, votoError;
     WebServerCallback processarVoto;
 
+    /**Usado para carregar o voto;*/
+    boolean loaded;
+    int[] ratingVotos;
+    int votoPremiado;
+    boolean[] como;
+    boolean[] justificar;
+    String outro;
+
     boolean waitingCallback;
 
     //check-boxes adicionais
@@ -56,9 +68,11 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trabalho);
+        loaded = false;
         initializeValues();
         initializeToasts();
         generateSeekbars();
+        fillVotoFooter();
 
     }
 
@@ -87,6 +101,9 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
         apresentador.setText(trabalho.getAutorprincipal());
         if(trabalho.isVoted())
             buttonSalvar.setText(R.string.alterarVoto);
+
+
+        loadVote(); //carrega o voto.
 
         //initializing outros
         radioPremiado = (RadioGroup)findViewById(R.id.radioPremiado);
@@ -133,6 +150,10 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
         inflateViews(criterios);
     }
 
+    /**
+     * Infla as views correspondente às ratingBars, de acordo com os criterios.
+     * @param criterios
+     */
     private void inflateViews(String[] criterios){
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         int contadorNotas=0;
@@ -143,6 +164,10 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
             final TextView textValue = convertView.findViewById(R.id.textValue);
             final int notaIndex = contadorNotas;
             ratingNota = convertView.findViewById(R.id.ratingNota);
+            if(loaded){
+                ratingNota.setRating(ratingVotos[contadorNotas]);
+                notas[contadorNotas] = ratingVotos[contadorNotas];
+            }
             textLabel.setText(crit);
             textValue.setText(Integer.toString(ratingNota.getProgress()));
 
@@ -165,7 +190,7 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
         hideKeyboard(v);
         connectingText.setVisibility(View.VISIBLE);
         connectingBar.setVisibility(View.VISIBLE);
-        String idTrabalho = Integer.toString(Utils.getTrabalho().getIdtrabalho());
+        int idTrabalho = Utils.getTrabalho().getIdtrabalho();
         int idpremiado = radioPremiado.getCheckedRadioButtonId();
         int premiado = (idpremiado == R.id.radioSim ? 1 : 0);
 
@@ -181,10 +206,56 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
         justifique[2] = checkRelevancia.isChecked() ? (getString(R.string.textRelevancia)) : "";
         justifique[3] = checkCritica.isChecked() ? (getString(R.string.textCritica)) : "";
         justifique[4] = checkOutro.isChecked() ? (editOutro.getText().toString()) : "";
-        Voto vt = new Voto(Utils.getCpf(), idTrabalho, criterios, notas, premiado, como, justifique);
-        Log.d("Voto", ""+vt.asMap());
+        Voto vt = new Voto(Utils.getCpf(), Integer.toString(idTrabalho), criterios, notas, premiado, como, justifique);
+        Utils.addVoto(vt);
+        Map vtmap = vt.asMap();
+        Log.d("Voto", ""+vtmap);
         waitingCallback = true;
-        servidor.votar(vt.asMap(), processarVoto);
+        servidor.votar(vtmap, processarVoto);
+    }
+
+    /**
+     * Busca o voto correspondente ao trabalho e carrega-o na interface.
+     */
+    private void loadVote(){
+        Voto v = Utils.getVotoByTrabalho(Utils.getTrabalho());
+        if (v == null)
+            return;
+        votoPremiado = v.getPremiado();
+        String[] como = v.getComo();
+        String[] justificar = v.getJustificar();
+        ratingVotos = v.getNotas();
+        this.como = new boolean[como.length];
+        for(int x=0 ; x < como.length ; x++)
+            this.como[x] = como[x].length() > 0;
+        this.justificar = new boolean[justificar.length];
+        for(int x=0 ; x < justificar.length ; x++)
+            this.justificar[x] = justificar[x].length() > 0;
+
+        this.outro = justificar[justificar.length-1];
+
+        loaded = true;
+
+    }
+
+    private void fillVotoFooter(){
+        if(!loaded)
+            return;
+        int cont=0;
+        //premiado
+        int idPremiado = votoPremiado == 1 ? R.id.radioSim : R.id.radioNao;
+        radioPremiado.check(idPremiado);
+        //como
+        checkMelhor.setChecked(como[cont++]);
+        checkMencao.setChecked(como[cont++]);
+        cont=0;
+        //justificar
+        checkClareza.setChecked(justificar[cont++]);
+        checkPesquisador.setChecked(justificar[cont++]);
+        checkRelevancia.setChecked(justificar[cont++]);
+        checkCritica.setChecked(justificar[cont++]);
+        checkOutro.setChecked(justificar[cont++]);
+        editOutro.setText(outro);
     }
 
     private void votoResult() {
