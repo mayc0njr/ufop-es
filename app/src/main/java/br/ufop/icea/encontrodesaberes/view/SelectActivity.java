@@ -103,6 +103,5 @@ public class SelectActivity extends TwoTapsBackAppCompatActivity {
     public void onDestroy(){
         super.onDestroy();
         servidor.logout();
-        Utils.saveVotes();
     }
 }

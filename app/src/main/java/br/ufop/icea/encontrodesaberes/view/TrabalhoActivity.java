@@ -30,6 +30,14 @@ import br.ufop.icea.encontrodesaberes.controller.WebServerES;
 import br.ufop.icea.encontrodesaberes.model.Trabalho;
 import br.ufop.icea.encontrodesaberes.model.Voto;
 
+/**
+ * Classe responsável por captar o voto, e enviar ao servidor.
+ *
+ * Instancia dinamicamente RatingBars de acordo com os critérios
+ * do trabalho a ser avaliado.
+ * Carrega (se já houver dados), um voto já efetuado pelo mesmo
+ * autor, para o mesmo trabalho, e preenche os campos adequadamente.
+ */
 public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
     TextView titulo, autor, apresentador;
     WebServerES servidor;
@@ -44,6 +52,7 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
     RatingBar ratingNota;
     Toast votoOk, votoError;
     WebServerCallback processarVoto;
+    Voto lastVote;
 
     /**Usado para carregar o voto;*/
     boolean loaded;
@@ -76,11 +85,18 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
 
     }
 
+    /**
+     * Inicializa os toasts que podem ser mostrados na tela.
+     */
     private void initializeToasts(){
         votoOk = Toast.makeText(this, R.string.textOk, Toast.LENGTH_SHORT);
         votoError = Toast.makeText(this, R.string.textError, Toast.LENGTH_SHORT);
     }
 
+    /**
+     * Inicializa as views e preenche (se necessário) com os valores padrão
+     * e/ou lidos do Trabalho.
+     */
     private void initializeValues(){
         servidor = WebServerES.singleton();
         connectingText = (TextView)findViewById(R.id.textConnecting);
@@ -144,6 +160,9 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
         };
     }
 
+    /**
+     * Carrega a função de inflar as views, de acordo com os critérios lidos do trabalho.
+     */
     private void generateSeekbars(){
         criterios = trabalho.getItensSplitted();
         notas = new int[criterios.length];
@@ -183,6 +202,12 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
         }
     }
 
+    /**
+     * Obtém os dados dos campos preenchidos pelo usuário,
+     * Preenche um voto, e manda-o para o servidor.
+     * Também chama a função utilitária para salvar no arquivo.
+     * @param v View que chamou a função.
+     */
     public void votar(View v){
         if (waitingCallback) {
             return;
@@ -206,11 +231,11 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
         justifique[2] = checkRelevancia.isChecked() ? (getString(R.string.textRelevancia)) : "";
         justifique[3] = checkCritica.isChecked() ? (getString(R.string.textCritica)) : "";
         justifique[4] = checkOutro.isChecked() ? (editOutro.getText().toString()) : "";
-        Voto vt = new Voto(Utils.getCpf(), Integer.toString(idTrabalho), criterios, notas, premiado, como, justifique);
-        Utils.addVoto(vt);
+        Voto vt = new Voto(Utils.getTrabalho().getAvaliador().toString(), Utils.getCpf(), Integer.toString(idTrabalho), criterios, notas, premiado, como, justifique);
         Map vtmap = vt.asMap();
         Log.d("Voto", ""+vtmap);
         waitingCallback = true;
+        lastVote = vt;
         servidor.votar(vtmap, processarVoto);
     }
 
@@ -238,6 +263,10 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
 
     }
 
+    /**
+     * Preenche os dados das checkboxes do voto, relacionadas à premiação.
+     * Usada após carregar um voto do arquivo.
+     */
     private void fillVotoFooter(){
         if(!loaded)
             return;
@@ -258,6 +287,11 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
         editOutro.setText(outro);
     }
 
+    /**
+     * Processa o resultado do voto.
+     * Caso o servidor responda positivamente, salva o voto no arquivo, e retorna à lista.
+     * Caso o servidor não responda, ou responda negativamente, nada é salvo, e um feedback é dado ao usuário.
+     */
     private void votoResult() {
         connectingText.setVisibility(View.GONE);
         connectingBar.setVisibility(View.GONE);
@@ -267,6 +301,8 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
             case WebServerES.AUTH_OK:
                 votoOk.show();
                 trabalho.setVotado(1);
+                Utils.addVoto(lastVote);
+                Utils.saveVotes();
                 finish();
                 break;
             case WebServerES.AUTH_ERROR:
@@ -275,6 +311,10 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
         }
     }
 
+    /**
+     * Mostra as checkboxes adicionais.
+     * Usado quando o usuário toca no radioButton 'Sim' no grupo 'Premiado'.
+     */
     private void showExtras(){
         textComo.setVisibility(View.VISIBLE);
         textJustifique.setVisibility(View.VISIBLE);
@@ -290,6 +330,10 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
 //        layoutScroll.scrollTo(0, layoutScroll.getBottom());
     }
 
+    /**
+     * Esconde as checkboxes adicionais.
+     * Usado quando o usuário toca no radioButton 'Não' no grupo 'Premiado'.
+     */
     private void hideExtras(){
         textComo.setVisibility(View.GONE);
         textJustifique.setVisibility(View.GONE);
@@ -303,18 +347,32 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
         editOutro.setVisibility(View.GONE);
     }
 
+    /**
+     * Sobreescrita do método onBackPressed.
+     * Usado para impedir que o usuário volte à lista enquanto espera resposta do servidor.
+     */
     @Override
     public void onBackPressed(){
         if(waitingCallback)
             return;
         super.onBackPressed();
     }
+
+    /**
+     * Função do botão cancelar, volta à view anterior, cancelando o voto.
+     * Não funciona enquanto espera resposta do servidor.
+     * @param v View que chamou a função.
+     */
     public void cancelar(View v){
         if(waitingCallback)
             return;
         finish();
     }
 
+    /**
+     * Chama a função utilitária para esconder o teclado.
+     * @param v View que chamou a função.
+     */
     public void hideKeyboard(View v){
         Utils.hideKeyboard(this, v);
     }

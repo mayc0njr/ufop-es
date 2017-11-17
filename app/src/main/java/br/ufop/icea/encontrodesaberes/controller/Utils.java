@@ -77,8 +77,7 @@ public class Utils {
     /**
      * Método intToByte: Convete de um valor inteiro em um vetor de bytes.
      *
-     * @param num
-     *            : Um valor do tipo int.
+     * @param num Um valor do tipo int.
      *
      * @return Um vetor de bytes obtido a partir da serialização do valor do int.
      */
@@ -97,8 +96,7 @@ public class Utils {
     /**
      * Método byteToInt: Converte um vetor de bytes em um valor inteiro.
      *
-     * @param b
-     *          : Vetor de bytes contendo o valor a ser desserializado.
+     * @param b Vetor de bytes contendo o valor a ser desserializado.
      *
      * @return Um valor de tipo int obtido a partir da desserialização do vetor de bytes.
      */
@@ -115,8 +113,7 @@ public class Utils {
     /**
      * Método longToByte: Convete de um valor long em um vetor de bytes.
      *
-     * @param num
-     *            : Um valor do tipo long.
+     * @param num Um valor do tipo long.
      *
      * @return Um vetor de bytes obtido a partir da serialização do valor do long.
      */
@@ -134,8 +131,7 @@ public class Utils {
     /**
      * Método byteToLong: Converte um vetor de bytes em um valor long.
      *
-     * @param b
-     *          : Vetor de bytes contendo o valor a ser desserializado.
+     * @param b Vetor de bytes contendo o valor a ser desserializado.
      *
      * @return Um valor de tipo long obtido a partir da desserialização do vetor de bytes.
      */
@@ -220,24 +216,36 @@ public class Utils {
     }
 
     /**
-     * Obtem o voto que corresponde ao trabalho, comparando os ids.
+     * Obtem o voto que corresponde ao trabalho e ao avaliador, comparando os ids.
      * @param idTrabalho
      * @return
      */
-    public static Voto getVotoByIdTrabalho(int idTrabalho){
-        for(Voto v : savedVotes)
-            if(v.getIdTrabalho() == idTrabalho)
+    public static Voto getVotoByIdTrabalhoIdAvaliador(String idTrabalho, String avaliador){
+        Log.d("params", "idt: " + idTrabalho);
+        Log.d("params", "aval: " + avaliador);
+        for(Voto v : savedVotes){
+            Log.d("lista", "idt: " + v.getIdTrabalho());
+            Log.d("lista", "aval: " + v.getTrueIdAvaliador());
+            if(v.getIdTrabalho().equals(idTrabalho) && v.getTrueIdAvaliador().equals(avaliador))
                 return v;
+        }
         return null;
     }
 
     public static Voto getVotoByTrabalho(Trabalho t){
-        return getVotoByIdTrabalho(t.getIdtrabalho());
+        return getVotoByIdTrabalhoIdAvaliador(Integer.toString(t.getIdtrabalho()), Integer.toString(t.getAvaliador()));
     }
 
+    /**
+     * Adiciona um voto na lista de votos.
+     *
+     * Caso já haja um voto presente na lista, para o trabalho, e avaliador,
+     * remove o voto antigo, e adiciona o voto novo.
+     * @param v
+     */
     public static void addVoto(Voto v){
         for(int x=0 ; x < savedVotes.size() ; x++){
-            if(v.getIdTrabalho() == savedVotes.get(x).getIdTrabalho()){
+            if(v.compareTo(savedVotes.get(x)) == 0){
                 savedVotes.remove(x);
                 break;
             }

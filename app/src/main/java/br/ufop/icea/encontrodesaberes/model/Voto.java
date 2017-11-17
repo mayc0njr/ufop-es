@@ -26,7 +26,7 @@ public class Voto implements Comparable<Voto>{
 
 
     private int premiado;
-    private String idAvaliador, idTrabalho;
+    private String idAvaliador, idTrabalho, trueIdAvaliador;
     private String[] criterios;
     private int[] notas;
     private String[] como;
@@ -41,17 +41,19 @@ public class Voto implements Comparable<Voto>{
 
     /**
      * Constrói um voto para ser enviado para o servidor.
-     * @param idAvaliador
-     * @param idTrabalho
-     * @param criterios
-     * @param notas
-     * @param premiado
-     * @param como
-     * @param justificar
+     * @param trueIdAvaliador id do avaliador (igual ao do trabalho. ~ Nao eh enviado ao servidor, usado para recuperar e carregar votos do arquivo.
+     * @param idAvaliador cpf do avaliador.
+     * @param idTrabalho id do trabalho a ser avaliado
+     * @param criterios lista de criterios a serem avaliados
+     * @param notas notas dos criterios
+     * @param premiado se deve ser premiado
+     * @param como como deve ser premiado (melhor trabalho, mencao honrosa)
+     * @param justificar justificativas para o motivo da premiacao.
      */
-    public Voto(String idAvaliador, String idTrabalho, String[] criterios, int[] notas, int premiado, String[] como, String[] justificar){
+    public Voto(String trueIdAvaliador, String idAvaliador, String idTrabalho, String[] criterios, int[] notas, int premiado, String[] como, String[] justificar){
         if(criterios.length != notas.length)
             throw new IllegalArgumentException("Criterios e Notas devem estar em quantidade igual");
+        this.trueIdAvaliador = trueIdAvaliador;
         this.idAvaliador = idAvaliador;
         this.idTrabalho = idTrabalho;
         this.criterios = new String[criterios.length];
@@ -121,11 +123,22 @@ public class Voto implements Comparable<Voto>{
     }
 
     public int compareTo(Voto v){
-        return this.idTrabalho.hashCode() - v.idTrabalho.hashCode();
+        int x = this.idTrabalho.compareTo(v.idTrabalho);
+        if (x != 0)
+            return x;
+        return this.idAvaliador.compareTo(v.idAvaliador);
     }
 
-    public int getIdTrabalho(){
-        return Integer.parseInt(this.idTrabalho);
+    public String getIdTrabalho(){
+        return this.idTrabalho;
+    }
+
+    public String getIdAvaliador(){
+        return idAvaliador;
+    }
+
+    public String getTrueIdAvaliador(){
+        return trueIdAvaliador;
     }
 
     public int[] getNotas(){
@@ -147,7 +160,7 @@ public class Voto implements Comparable<Voto>{
 
     public void write(OutputStream out) throws IOException {
         int fields;
-        WriteObject[] io = new WriteObject[7];
+        WriteObject[] io = new WriteObject[8];
         IOObject[] ioCriterios = new IOObject[criterios.length];
         for(int x=0 ; x < criterios.length ; x++){
             ioCriterios[x] = new IOString(criterios[x]);
@@ -168,27 +181,29 @@ public class Voto implements Comparable<Voto>{
             ioJustificar[x] = new IOString(justificar[x]);
             Log.d("Writing", "Justificar: " + justificar[x]);
         }
-        io[0] = new IOString(this.idAvaliador);
-        io[1]  = new IOString(this.idTrabalho);
-        io[2]  = new IOArray(ioCriterios);
-        io[3]  = new IOArray(ioNotas);
-        io[4]  = new IOInt(this.premiado);
-        io[5]  = new IOArray(ioComo);
-        io[6]  = new IOArray(ioJustificar);
+        io[0] = new IOString(this.trueIdAvaliador);
+        io[1] = new IOString(this.idAvaliador);
+        io[2]  = new IOString(this.idTrabalho);
+        io[3]  = new IOArray(ioCriterios);
+        io[4]  = new IOArray(ioNotas);
+        io[5]  = new IOInt(this.premiado);
+        io[6]  = new IOArray(ioComo);
+        io[7]  = new IOArray(ioJustificar);
         for(WriteObject wo : io){
             wo.write(out);
         }
     }
 
     public void read(InputStream in) throws IOException{
-        ReadObject[] io = new ReadObject[7];
+        ReadObject[] io = new ReadObject[8];
         io[0] = new IOString();
-        io[1]  = new IOString();
-        io[2]  = new IOArray(new IOString());
-        io[3]  = new IOArray(new IOInt());
-        io[4]  = new IOInt();
-        io[5]  = new IOArray(new IOString());
+        io[1] = new IOString();
+        io[2]  = new IOString();
+        io[3]  = new IOArray(new IOString());
+        io[4]  = new IOArray(new IOInt());
+        io[5]  = new IOInt();
         io[6]  = new IOArray(new IOString());
+        io[7]  = new IOArray(new IOString());
         for(ReadObject ro : io){
             ro.read(in);
         }
@@ -196,33 +211,34 @@ public class Voto implements Comparable<Voto>{
         IOObject[] ioNotas;
         IOObject[] ioComo;
         IOObject[] ioJustificar;
-        this.idAvaliador = ((IOString)io[0]).get();
-        this.idTrabalho = ((IOString)io[1]).get();
+        this.trueIdAvaliador = ((IOString)io[0]).get();
+        this.idAvaliador = ((IOString)io[1]).get();
+        this.idTrabalho = ((IOString)io[2]).get();
 
-        ioCriterios = ((IOArray)io[2]).get();
+        ioCriterios = ((IOArray)io[3]).get();
         this.criterios = new String[ioCriterios.length];
         for(int x=0 ; x < criterios.length ; x++){
             criterios[x] = ((IOString)ioCriterios[x]).get();
             Log.d("Reading", "Criterios: " + criterios[x]);
         }
 
-        ioNotas = ((IOArray)io[3]).get();
+        ioNotas = ((IOArray)io[4]).get();
         this.notas = new int[ioNotas.length];
         for(int x=0 ; x < notas.length ; x++){
             notas[x] = ((IOInt)ioNotas[x]).get();
             Log.d("Reading", "Notas: " + notas[x]);
         }
 
-        this.premiado = ((IOInt)io[4]).get();
+        this.premiado = ((IOInt)io[5]).get();
 
-        ioComo = ((IOArray)io[5]).get();
+        ioComo = ((IOArray)io[6]).get();
         this.como = new String[ioComo.length];
         for(int x=0 ; x < como.length ; x++){
             como[x] = ((IOString)ioComo[x]).get();
             Log.d("Reading", "Como: " + como[x]);
         }
 
-        ioJustificar = ((IOArray)io[6]).get();
+        ioJustificar = ((IOArray)io[7]).get();
         this.justificar = new String[ioJustificar.length];
         for(int x=0 ; x < justificar.length ; x++){
             justificar[x] = ((IOString)ioJustificar[x]).get();

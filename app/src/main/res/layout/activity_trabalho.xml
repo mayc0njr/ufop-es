@@ -135,7 +135,7 @@
         android:layout_marginTop="@dimen/progressSeparator"
         android:visibility="gone"
         android:text="@string/waiting"
-        android:textColor="@color/mainTextColor"/>
+        android:textColor="@color/colorPrimary"/>
     <ProgressBar
         android:id="@+id/progressConnecting"
         android:layout_width="wrap_content"
@@ -144,5 +144,5 @@
         android:layout_above="@+id/textConnecting"
         android:visibility="gone"
         android:indeterminate="true"
-        android:indeterminateDrawable="@drawable/custom_progress_bar"/>
+        android:indeterminateDrawable="@drawable/custom_swaped_progress_bar"/>
 </RelativeLayout>

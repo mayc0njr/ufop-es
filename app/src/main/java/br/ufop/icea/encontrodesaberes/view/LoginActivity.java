@@ -1,5 +1,6 @@
 package br.ufop.icea.encontrodesaberes.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -15,7 +16,7 @@ import br.com.albeom.nymeria.view.TwoTapsBackActivity;
 import br.ufop.icea.encontrodesaberes.R;
 import br.ufop.icea.encontrodesaberes.controller.*;
 
-public class LoginActivity extends TwoTapsBackActivity {
+public class LoginActivity extends Activity {
 
     WebServerES servidor;
     TextView login, password, connectingText;
