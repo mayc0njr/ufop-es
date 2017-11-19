@@ -12,7 +12,7 @@ import br.ufop.icea.encontrodesaberes.controller.Utils;
 import br.ufop.icea.encontrodesaberes.model.io.*;
 
 /**
- * Created by maycon on 26/10/17.
+ * Representa um voto que será armazenado no arquivo e enviado ao servidor.
  */
 
 public class Voto implements Comparable<Voto>{
@@ -31,8 +31,6 @@ public class Voto implements Comparable<Voto>{
     private int[] notas;
     private String[] como;
     private String[] justificar;
-//    private String[] comentarios;
-//    private boolean[] checkBox;
 
     /** Construtor usado para inicializar um objeto vazio.
      * Usado apenas para carregar dados do arquivo.
@@ -76,6 +74,10 @@ public class Voto implements Comparable<Voto>{
     /**
      * Obtem o objeto do voto em forma de mapa,
      * usado para enviar os dados do voto para o servidor.
+     * Obs.:    O campo trueIdAvaliador não é enviado ao servidor, mas é escrito no arquivo,
+     *          pois é necessário para comparar com o id escrito no trabalho
+     *          para carregar os votos do arquivo.
+     *
      * @return Um Map, contendo os dados do voto.
      */
     public Map asMap(){
@@ -158,28 +160,35 @@ public class Voto implements Comparable<Voto>{
     }
 
 
+    /**
+     * Efetua a escrita de um voto no Stream de saída.
+     * Cria objetos de leitura e escrita compatíveis com os campos do voto,
+     * Então, escreve campo a campo e preenche os elementos do voto no stream.
+     * @param out Stream de saída onde serão salvos os votos.
+     * @throws IOException Caso o arquivo não possa ser escrito.
+     */
     public void write(OutputStream out) throws IOException {
         int fields;
         WriteObject[] io = new WriteObject[8];
         IOObject[] ioCriterios = new IOObject[criterios.length];
         for(int x=0 ; x < criterios.length ; x++){
             ioCriterios[x] = new IOString(criterios[x]);
-            Log.d("Writing", "Criterios: " + criterios[x]);
+//            Log.d("Writing", "Criterios: " + criterios[x]);
         }
         IOObject[] ioNotas = new IOObject[notas.length];
         for(int x=0 ; x < notas.length ; x++){
             ioNotas[x] = new IOInt(notas[x]);
-            Log.d("Writing", "Notas: " + notas[x]);
+//            Log.d("Writing", "Notas: " + notas[x]);
         }
         IOObject[] ioComo = new IOObject[como.length];
         for(int x=0 ; x < como.length ; x++){
             ioComo[x] = new IOString(como[x]);
-            Log.d("Writing", "Como: " + como[x]);
+//            Log.d("Writing", "Como: " + como[x]);
         }
         IOObject[] ioJustificar = new IOObject[justificar.length];
         for(int x=0 ; x < justificar.length ; x++){
             ioJustificar[x] = new IOString(justificar[x]);
-            Log.d("Writing", "Justificar: " + justificar[x]);
+//            Log.d("Writing", "Justificar: " + justificar[x]);
         }
         io[0] = new IOString(this.trueIdAvaliador);
         io[1] = new IOString(this.idAvaliador);
@@ -194,6 +203,13 @@ public class Voto implements Comparable<Voto>{
         }
     }
 
+    /**
+     * Efetua a leitura de um voto salvo no Stream de entrada.
+     * Cria objetos de leitura e escrita compatíveis com os campos do voto,
+     * Então, carrega campo a campo e preenche os elementos do voto.
+     * @param in Stream de entrada que contém os dados salvos dos votos.
+     * @throws IOException Exceção caso o arquivo não possa ser lido.
+     */
     public void read(InputStream in) throws IOException{
         ReadObject[] io = new ReadObject[8];
         io[0] = new IOString();
@@ -219,14 +235,14 @@ public class Voto implements Comparable<Voto>{
         this.criterios = new String[ioCriterios.length];
         for(int x=0 ; x < criterios.length ; x++){
             criterios[x] = ((IOString)ioCriterios[x]).get();
-            Log.d("Reading", "Criterios: " + criterios[x]);
+//            Log.d("Reading", "Criterios: " + criterios[x]);
         }
 
         ioNotas = ((IOArray)io[4]).get();
         this.notas = new int[ioNotas.length];
         for(int x=0 ; x < notas.length ; x++){
             notas[x] = ((IOInt)ioNotas[x]).get();
-            Log.d("Reading", "Notas: " + notas[x]);
+//            Log.d("Reading", "Notas: " + notas[x]);
         }
 
         this.premiado = ((IOInt)io[5]).get();
@@ -235,14 +251,14 @@ public class Voto implements Comparable<Voto>{
         this.como = new String[ioComo.length];
         for(int x=0 ; x < como.length ; x++){
             como[x] = ((IOString)ioComo[x]).get();
-            Log.d("Reading", "Como: " + como[x]);
+//            Log.d("Reading", "Como: " + como[x]);
         }
 
         ioJustificar = ((IOArray)io[7]).get();
         this.justificar = new String[ioJustificar.length];
         for(int x=0 ; x < justificar.length ; x++){
             justificar[x] = ((IOString)ioJustificar[x]).get();
-            Log.d("Reading", "Justificar: " + justificar[x]);
+//            Log.d("Reading", "Justificar: " + justificar[x]);
         }
     }
 

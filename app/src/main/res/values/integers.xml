@@ -4,4 +4,6 @@
     <integer name="defaultCriterioMin">0</integer>
     <integer name="defaultCriterioStep">1</integer>
     <integer name="exit_time">3000</integer>
+    <integer name="splash_animation_duration">500</integer>
+    <integer name="splash_duration">1000</integer>
 </resources>

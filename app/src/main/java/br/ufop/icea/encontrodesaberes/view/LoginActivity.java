@@ -16,9 +16,12 @@ import br.com.albeom.nymeria.view.TwoTapsBackActivity;
 import br.ufop.icea.encontrodesaberes.R;
 import br.ufop.icea.encontrodesaberes.controller.*;
 
+/**
+ * Classe responsável por receber os dados do usuário e autenticar no servidor.
+ */
 public class LoginActivity extends Activity {
 
-    WebServerES servidor;
+    WebServerES servidor; // objeto de conexão com o servidor.
     TextView login, password, connectingText;
     ProgressBar connectingBar;
 
@@ -44,7 +47,7 @@ public class LoginActivity extends Activity {
     }
 
     private void initializeValues(){
-        WebServerES.initialize("http://albeom.com.br/ufop/encontrodesaberes/mobile/", this);
+        WebServerES.initialize(Utils.SERVER_ADDRESS, this);
         servidor = WebServerES.singleton();
         login = (TextView)findViewById(R.id.editLogin);
         password = (TextView)findViewById(R.id.editPassword);
@@ -57,6 +60,7 @@ public class LoginActivity extends Activity {
             }
         };
     }
+    //Inicializa o listener do campo senha, para avançar automaticamente ao pressionar GO (enter)
     private void initializeListeners(){
 
         password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -69,6 +73,11 @@ public class LoginActivity extends Activity {
             }
         });
     }
+
+    /**
+     * Funcao para esconder o teclado.
+     * @param v View que está chamando a função.
+     */
     public void hideKeyboard(View v){
         Utils.hideKeyboard(this, v);
     }
@@ -93,16 +102,6 @@ public class LoginActivity extends Activity {
         servidor.authenticate(login, password, processarLogin);
         waitingCallback = true;
     }
-//    void fakeAuthenticate(){
-//        Trabalho t = new Trabalho();
-//        t.setAutorprincipal("Maycon Junior");
-//        t.setAvaliador(2);
-//        t.setCriterios(5);
-//        t.setIdtrabalho(3);
-//        t.setNomeavaliador("Wagner Nardy");
-//        t.setItensavaliacao("item1,item2,item3123");
-//        t.setTitulo("Era uma vez no méxico.");
-//    }
 
     /**
      * Processa os resultados da autenticação.

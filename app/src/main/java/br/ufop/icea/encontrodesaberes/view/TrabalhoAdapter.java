@@ -16,7 +16,7 @@ import br.ufop.icea.encontrodesaberes.R;
 import br.ufop.icea.encontrodesaberes.model.Trabalho;
 
 /**
- * Created by mayconjr on 19/10/17.
+ * Adaptador responsável por inflar um item 'Trabalho' na lista de Trabalhos da 'SelectActivity'
  */
 
 public class TrabalhoAdapter extends BaseAdapter {

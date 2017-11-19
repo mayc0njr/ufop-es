@@ -18,6 +18,10 @@ import br.ufop.icea.encontrodesaberes.controller.Utils;
 import br.ufop.icea.encontrodesaberes.controller.WebServerES;
 import br.ufop.icea.encontrodesaberes.model.Trabalho;
 
+/**
+ * Classe responsável por exibir a lista de trabalhos, e o status de cada um,
+ * Votado ou não-votado, exibe também o nome do usuário autenticado e um botão para sair do sistema.
+ */
 public class SelectActivity extends TwoTapsBackAppCompatActivity {
 
     WebServerES servidor; //Objeto responsável por tratar a comunicação com o Servidor.
@@ -38,7 +42,10 @@ public class SelectActivity extends TwoTapsBackAppCompatActivity {
         listarTrabalhos(null);
     }
 
-
+    /**
+     * Busca uma lista de trabalhos do servidor, para preencher a lista de trabalhos.
+     * @param v View que chama a função.
+     */
     public void listarTrabalhos(View v){
         textSearching.setVisibility(View.VISIBLE);
         progressSearching.setVisibility(View.VISIBLE);
@@ -78,6 +85,13 @@ public class SelectActivity extends TwoTapsBackAppCompatActivity {
         textName.setText(Utils.getName());
     }
 
+    /**
+     * Chamada após retornar da tela de votos, para atualizar a lista de trabalhos,
+     * marcando que o trabalho selecionado foi votado.
+     * @param requestCode Codigo da requisição de startActivity
+     * @param resultCode Resultado enviado pela activity
+     * @param data dados recebidos da activity
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("SelectActivity", "OnActivityResult");
@@ -87,21 +101,36 @@ public class SelectActivity extends TwoTapsBackAppCompatActivity {
         }
     }
 
-
-    public void getTrabs(View v){
-        servidor.obterTrabalhos(new ArrayList<Trabalho>(), processarTrabalhos);
-    }
-
+    /**
+     * Usado para efetuar o logout no servidor.
+     * Também fecha a tela.
+     * @param v View que chama a função.
+     */
     public void logout(View v){
         servidor.logout();
         finish();
-//        Intent it = new Intent(this, LoginActivity.class);
-//        startActivity(it);
     }
 
+    /**
+     * Chamada quando a tela é destruída, para efetuar o logout.
+     */
     @Override
     public void onDestroy(){
         super.onDestroy();
         servidor.logout();
+        Utils.saveVotes();
+    }
+
+    /**
+     * Sobreescrita da funcao onBackPressed.
+     * Salva os votos e desloga antes de sair da tela.
+     */
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        if(canExit()){
+            servidor.logout();
+            Utils.saveVotes();
+        }
     }
 }

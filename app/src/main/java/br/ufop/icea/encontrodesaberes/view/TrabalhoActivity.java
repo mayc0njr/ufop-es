@@ -36,7 +36,7 @@ import br.ufop.icea.encontrodesaberes.model.Voto;
  * Instancia dinamicamente RatingBars de acordo com os critérios
  * do trabalho a ser avaliado.
  * Carrega (se já houver dados), um voto já efetuado pelo mesmo
- * autor, para o mesmo trabalho, e preenche os campos adequadamente.
+ * avaliador, para o mesmo trabalho, e preenche os campos adequadamente.
  */
 public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
     TextView titulo, autor, apresentador;
@@ -289,7 +289,7 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
 
     /**
      * Processa o resultado do voto.
-     * Caso o servidor responda positivamente, salva o voto no arquivo, e retorna à lista.
+     * Caso o servidor responda positivamente, salva o voto, e retorna à lista.
      * Caso o servidor não responda, ou responda negativamente, nada é salvo, e um feedback é dado ao usuário.
      */
     private void votoResult() {
@@ -302,7 +302,6 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
                 votoOk.show();
                 trabalho.setVotado(1);
                 Utils.addVoto(lastVote);
-                Utils.saveVotes();
                 finish();
                 break;
             case WebServerES.AUTH_ERROR:

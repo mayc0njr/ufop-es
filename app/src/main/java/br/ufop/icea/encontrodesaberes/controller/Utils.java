@@ -37,7 +37,9 @@ public class Utils {
     public static String JUSTIFICAR = "justificar";
     public static String OUTRO = "outro";
 
-    /** IO Objects file*/
+    /** Endereco do Servidor. */
+    public static final String SERVER_ADDRESS = "http://albeom.com.br/ufop/encontrodesaberes/mobile/";
+    /** IO Objects file */
     public static final String STORE_FILE = "dbves.dat";
     private static Activity ioActivity;
 
@@ -184,8 +186,12 @@ public class Utils {
     public static void setCpf(String cpf){
         Utils.cpf = cpf;
     }
+    private static boolean saved = false;
 
     public static void saveVotes(){
+        if(saved)
+            return;
+        Log.d("Utils", "saveVoto: ");
         FileOutputStream out;
         try{
             out = ioActivity.openFileOutput(Utils.STORE_FILE, MODE_PRIVATE);
@@ -193,17 +199,20 @@ public class Utils {
             for(Voto v : savedVotes){
                 v.write(out);
             }
+            out.flush();
+            out.close();
         }catch(IOException e){
             Log.e("Splash WRITE", e.toString());
         }
-
+        saved = true;
     }
-    public static void loadVotes(Activity a){
-        ioActivity = a;
+    public static void loadVotes(Activity context){
+        Log.d("Utils", "loadVoto: ");
+        ioActivity = context;
         FileInputStream in;
         savedVotes = new ArrayList<>();
         try{
-            in = a.openFileInput(Utils.STORE_FILE);
+            in = context.openFileInput(Utils.STORE_FILE);
             while(in.available() > 0){
                 Voto temp = new Voto();
                 temp.read(in);
@@ -213,6 +222,7 @@ public class Utils {
         }catch(IOException e){
             Log.e("Splash READ", e.toString());
         }
+        saved = true;
     }
 
     /**
@@ -244,6 +254,8 @@ public class Utils {
      * @param v
      */
     public static void addVoto(Voto v){
+        saved = false;
+        Log.d("Utils", "addVoto: ");
         for(int x=0 ; x < savedVotes.size() ; x++){
             if(v.compareTo(savedVotes.get(x)) == 0){
                 savedVotes.remove(x);

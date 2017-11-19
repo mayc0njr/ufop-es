@@ -11,6 +11,7 @@ import br.com.albeom.nymeria.*;
 import br.ufop.icea.encontrodesaberes.model.Trabalho;
 
 /**
+ * Extende WebServer para fornecer a conexão com o Servidor.
  * Created by mayconjr on 19/10/17.
  */
 
@@ -24,20 +25,36 @@ public class WebServerES extends WebServer {
     private static WebServerES instance;
 
 
+    /**
+     * Constrói um objeto de servidor a partir do endereço do servidor e da Activity.
+     * @param urlBase
+     * @param c
+     */
     private WebServerES(String urlBase, Context c) {
         super(urlBase, c);
         authStatus = -1;
+        votoStatus = -1;
     }
-
     public static WebServerES singleton(){
         return instance;
     }
 
+    /**
+     * Inicializa a instancia do objeto que será recuperada pelo singleton.
+     * @param urlBase Endereco base do servidor, onde serão executados os scripts.
+     * @param c Contexto/Activity usada.
+     */
     public static void initialize(String urlBase, Context c) {
         instance = new WebServerES(urlBase, c);
     }
 
-
+    /**
+     * Autentica o usuário e senha no servidor.
+     * Recebe a resposta, e executa a função recebida no último parâmetro.
+     * @param login Usuário a ser autenticado.
+     * @param senha Senha correspondente ao usuário.
+     * @param exec função a ser executada.
+     */
     public void authenticate(String login, String senha, final WebServerCallback exec) {
         authStatus = AUTH_INIT;
         Map parametros = new HashMap();
@@ -103,6 +120,11 @@ public class WebServerES extends WebServer {
 //
 //    }
 
+    /**
+     * Envia o voto para o servidor.
+     * @param parametros Map contendo todas as informações do voto, como notas, Id's, etc.
+     * @param exec Função a ser executada após receber a resposta do servidor.
+     */
     public void votar(Map parametros, final WebServerCallback exec) {
         votoStatus = AUTH_INIT;
         Log.d("Criterios", (String)parametros.get(Utils.CRITERIOS));
@@ -124,6 +146,9 @@ public class WebServerES extends WebServer {
         });
     }
 
+    /**
+     * Remove a autenticação do usuário no servidor.
+     */
     public void logout(){
         postData("logout.php", new HashMap(), new WebServerCallback() {
             @Override
@@ -133,10 +158,27 @@ public class WebServerES extends WebServer {
         });
     }
 
+    /**
+     * Usado para obter o estado da autenticação do servidor.
+     * @return
+     *          AUTH_OK (0) caso a autenticação tenha sido bem sucedida.
+     *          AUTH_FAIL (1) caso a autenticação tenha sido negada.
+     *          AUTH_ERROR (2) caso tenha ocorrido alguma falha.
+     *          AUTH_INIT (-1) caso a autenticação não tenha sido requisitada.
+     */
     public int getAuthStatus(){
         return authStatus;
     }
 
+
+    /**
+     * Usado para obter o estado do voto enviado ao servidor.
+     * @return
+     *          AUTH_OK (0) caso o voto tenha sido bem sucedida.
+     *          AUTH_FAIL (1) caso a autenticação tenha sido negada.
+     *          AUTH_ERROR (2) caso tenha ocorrido alguma falha.
+     *          AUTH_INIT (-1) caso o voto não tenha sido requisitada.
+     */
     public int getVotoStatus(){
         return votoStatus;
     }

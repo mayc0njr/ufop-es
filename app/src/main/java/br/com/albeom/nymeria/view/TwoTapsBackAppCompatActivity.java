@@ -9,7 +9,8 @@ import java.util.Calendar;
 import br.ufop.icea.encontrodesaberes.R;
 
 /**
- * Created by mayconjr on 19/10/17.
+ * Classe herda de AppCompatActivity, e sobreescreve a função do botão voltar.
+ * Requer o pressionamento duplo do botão dentro de um intervalo de tempo para sair.
  */
 
 public class TwoTapsBackAppCompatActivity extends AppCompatActivity {
@@ -33,6 +34,11 @@ public class TwoTapsBackAppCompatActivity extends AppCompatActivity {
         exitPress = Toast.makeText(this, getString(R.string.exit_press), Toast.LENGTH_LONG);
     }
 
+    /**
+     * Sobreescreve a função onBackPressed, para requisitar o toque duplo para sair.
+     * Caso sobreescrita em classes que herdam desta, necessário realizar uma chamada
+     * super, para manter a funcionalidade.
+     */
     @Override
     public void onBackPressed() {
         long actual = Calendar.getInstance().getTimeInMillis();

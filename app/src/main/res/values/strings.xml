@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Encontro de Saberes</string>
 
-    TwoTapsBackAppCompatActivityvity-->
+    <!--TwoTapsBackAppCompatActivityvity-->
     <string name="exit_press">Pressione Voltar novamente para sair</string>
+    <!--SplashActivity-->
+    <string name="ufop">Universidade Federal de Ouro Preto</string>
     <!--Login Activity-->
     <string name="loginHint">CPF</string>
     <string name="passwordHint">Senha</string>
