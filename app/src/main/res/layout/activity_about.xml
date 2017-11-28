@@ -14,12 +14,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/aboutMarginLogo"
         android:src="@drawable/icea_logo"/>
+    <TextView
+        android:id="@+id/textDesenvolvedores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageIcea"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/secondTextColor"
+        android:textStyle="bold"
+        android:textSize="@dimen/aboutSubSize"
+        android:text="@string/desenvolvedores"/>
     <TextView
         android:id="@+id/textAline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imageIcea"
+        android:layout_below="@id/textDesenvolvedores"
+        android:layout_centerHorizontal="true"
         android:textColor="@color/secondTextColor"
         android:text="@string/aline"/>
     <TextView
@@ -27,6 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textAline"
+        android:layout_centerHorizontal="true"
         android:textColor="@color/secondTextColor"
         android:text="@string/davidson"/>
     <TextView
@@ -34,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textDavidson"
+        android:layout_centerHorizontal="true"
         android:textColor="@color/secondTextColor"
         android:text="@string/mariaLuisa"/>
     <TextView
@@ -41,6 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textMariaLuisa"
+        android:layout_centerHorizontal="true"
         android:textColor="@color/secondTextColor"
         android:text="@string/maycon"/>
 

@@ -51,4 +51,10 @@
 
     <!--Margin between button and componentes on TrabalhoActivity-Criterios-->
     <dimen name="buttonMargin">4dp</dimen>
+
+    <!--text size for about subtitles-->
+    <dimen name="aboutSubSize">18sp</dimen>
+
+    <!--margin size for about logo-->
+    <dimen name="aboutMarginLogo">16sp</dimen>
 </resources>
