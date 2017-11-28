@@ -80,7 +80,7 @@ public class Voto implements Comparable<Voto>{
      */
     public Map asMap(){
         HashMap map = new HashMap();
-        map.put(Utils.ID_AVALIADOR, cpfAvaliador);
+        map.put(Utils.ID_AVALIADOR, trueIdAvaliador);
         map.put(Utils.ID_TRABALHO, idTrabalho);
         StringBuilder sb = new StringBuilder();
 

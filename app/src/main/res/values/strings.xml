@@ -58,6 +58,10 @@
     <string name="textPesquisador">Potencial do apresentador em ser um pesquisador</string>
     <string name="textRelevancia">Capacidade de mostrar a relevância do trabalho apresentado</string>
     <string name="textCritica">Capacidade de avaliação crítica sobre o trabalho apresentado</string>
+    <string name="cmpClareza">Domínio e clareza</string>
+    <string name="cmpPesquisador">Potencial do apresentador</string>
+    <string name="cmpRelevancia">Capacidade de mostrar a relev</string>
+    <string name="cmpCritica">Capacidade de avaliação cr</string>
     <string name="notFoundVoto">Falha ao carregar o voto, tentando novamente (%1$d/%2$d).</string>
     <string name="notFoundVotoFinal">Não foi possível carregar os dados do voto.</string>
     <string name="textOutro">Outro:</string>

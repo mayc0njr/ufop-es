@@ -426,19 +426,19 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
 //        editOutro.setText(outro);
         try{
         for(int x=0 ; x < justificarstr.length ; x++){
-            if(justificarstr[x].contains(getString(R.string.textClareza))){
+            if(justificarstr[x].contains(getString(R.string.cmpClareza))){
                 Log.d("textClareza...", justificarstr[x]);
                 justificar[0] = true;
             }
-            else if(justificarstr[x].contains(getString(R.string.textPesquisador))){
+            else if(justificarstr[x].contains(getString(R.string.cmpPesquisador))){
                 Log.d("textPesquisador...", justificarstr[x]);
                 justificar[1] = true;
             }
-            else if(justificarstr[x].contains(getString(R.string.textRelevancia))){
+            else if(justificarstr[x].contains(getString(R.string.cmpRelevancia))){
                 Log.d("textRelevancia...", justificarstr[x]);
                 justificar[2] = true;
             }
-            else if(justificarstr[x].contains(getString(R.string.textCritica))){
+            else if(justificarstr[x].contains(getString(R.string.cmpCritica))){
                 Log.d("textCritica...", justificarstr[x]);
                 justificar[3] = true;
             }else if(justificarstr[x].length() > 0){
