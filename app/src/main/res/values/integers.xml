@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Quantas vezes tentará buscar trabalhos.-->
+    <integer name="triesGet">3</integer>
+    <!--Limites inferior/superior da nota.-->
     <integer name="defaultCriterioMax">5</integer>
     <integer name="defaultCriterioMin">0</integer>
+    <!--"passo" entre opções de nota.-->
     <integer name="defaultCriterioStep">1</integer>
-    <integer name="exit_time">3000</integer>
+    <!--Tempo de espera pelo segundo clique voltar.-->
+    <integer name="exit_time">1500</integer>
+    <!--Duracao da animação fade-in da splash screen.-->
     <integer name="splash_animation_duration">500</integer>
+    <!--Duração minima da splash screen.-->
     <integer name="splash_duration">1000</integer>
 </resources>

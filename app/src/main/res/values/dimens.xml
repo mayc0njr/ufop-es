@@ -20,6 +20,14 @@
     <!--Width for border of listview's rows-->
     <dimen name="rowBorderWidth">2dp</dimen>
 
+    <!--Width for footer divider padding-->
+    <dimen name="footerDividerPadding">10dp</dimen>
+    <!--Height for footer border-->
+    <dimen name="footerBorder">10dp</dimen>
+
+    <!--Loading Bottom Margin-->
+    <dimen name="loadingMargin">60dp</dimen>
+
     <!--text size for trab title.-->
     <dimen name="tituloSize">20sp</dimen>
 

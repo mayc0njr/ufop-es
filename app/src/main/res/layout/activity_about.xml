@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activityVerticalMargin"
+    android:paddingBottom="@dimen/activityVerticalMargin"
+    android:paddingLeft="@dimen/activityHorizontalMargin"
+    android:paddingRight="@dimen/activityHorizontalMargin"
+    tools:context="br.ufop.icea.encontrodesaberes.view.AboutActivity">
+    <ImageView
+        android:id="@+id/imageIcea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/icea_logo"/>
+    <TextView
+        android:id="@+id/textAline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageIcea"
+        android:textColor="@color/secondTextColor"
+        android:text="@string/aline"/>
+    <TextView
+        android:id="@+id/textDavidson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textAline"
+        android:textColor="@color/secondTextColor"
+        android:text="@string/davidson"/>
+    <TextView
+        android:id="@+id/textMariaLuisa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textDavidson"
+        android:textColor="@color/secondTextColor"
+        android:text="@string/mariaLuisa"/>
+    <TextView
+        android:id="@+id/textMaycon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textMariaLuisa"
+        android:textColor="@color/secondTextColor"
+        android:text="@string/maycon"/>
+
+</RelativeLayout>

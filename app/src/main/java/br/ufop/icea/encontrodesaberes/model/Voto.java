@@ -1,7 +1,5 @@
 package br.ufop.icea.encontrodesaberes.model;
 
-import android.util.Log;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -26,7 +24,7 @@ public class Voto implements Comparable<Voto>{
 
 
     private int premiado;
-    private String idAvaliador, idTrabalho, trueIdAvaliador;
+    private String cpfAvaliador, idTrabalho, trueIdAvaliador;
     private String[] criterios;
     private int[] notas;
     private String[] como;
@@ -40,7 +38,7 @@ public class Voto implements Comparable<Voto>{
     /**
      * Constrói um voto para ser enviado para o servidor.
      * @param trueIdAvaliador id do avaliador (igual ao do trabalho. ~ Nao eh enviado ao servidor, usado para recuperar e carregar votos do arquivo.
-     * @param idAvaliador cpf do avaliador.
+     * @param cpfAvaliador cpf do avaliador.
      * @param idTrabalho id do trabalho a ser avaliado
      * @param criterios lista de criterios a serem avaliados
      * @param notas notas dos criterios
@@ -48,11 +46,11 @@ public class Voto implements Comparable<Voto>{
      * @param como como deve ser premiado (melhor trabalho, mencao honrosa)
      * @param justificar justificativas para o motivo da premiacao.
      */
-    public Voto(String trueIdAvaliador, String idAvaliador, String idTrabalho, String[] criterios, int[] notas, int premiado, String[] como, String[] justificar){
+    public Voto(String trueIdAvaliador, String cpfAvaliador, String idTrabalho, String[] criterios, int[] notas, int premiado, String[] como, String[] justificar){
         if(criterios.length != notas.length)
             throw new IllegalArgumentException("Criterios e Notas devem estar em quantidade igual");
         this.trueIdAvaliador = trueIdAvaliador;
-        this.idAvaliador = idAvaliador;
+        this.cpfAvaliador = cpfAvaliador;
         this.idTrabalho = idTrabalho;
         this.criterios = new String[criterios.length];
         this.notas = new int[notas.length];
@@ -82,7 +80,7 @@ public class Voto implements Comparable<Voto>{
      */
     public Map asMap(){
         HashMap map = new HashMap();
-        map.put(Utils.ID_AVALIADOR, idAvaliador);
+        map.put(Utils.ID_AVALIADOR, cpfAvaliador);
         map.put(Utils.ID_TRABALHO, idTrabalho);
         StringBuilder sb = new StringBuilder();
 
@@ -128,15 +126,15 @@ public class Voto implements Comparable<Voto>{
         int x = this.idTrabalho.compareTo(v.idTrabalho);
         if (x != 0)
             return x;
-        return this.idAvaliador.compareTo(v.idAvaliador);
+        return this.cpfAvaliador.compareTo(v.cpfAvaliador);
     }
 
     public String getIdTrabalho(){
         return this.idTrabalho;
     }
 
-    public String getIdAvaliador(){
-        return idAvaliador;
+    public String getCpfAvaliador(){
+        return cpfAvaliador;
     }
 
     public String getTrueIdAvaliador(){
@@ -191,7 +189,7 @@ public class Voto implements Comparable<Voto>{
 //            Log.d("Writing", "Justificar: " + justificar[x]);
         }
         io[0] = new IOString(this.trueIdAvaliador);
-        io[1] = new IOString(this.idAvaliador);
+        io[1] = new IOString(this.cpfAvaliador);
         io[2]  = new IOString(this.idTrabalho);
         io[3]  = new IOArray(ioCriterios);
         io[4]  = new IOArray(ioNotas);
@@ -228,7 +226,7 @@ public class Voto implements Comparable<Voto>{
         IOObject[] ioComo;
         IOObject[] ioJustificar;
         this.trueIdAvaliador = ((IOString)io[0]).get();
-        this.idAvaliador = ((IOString)io[1]).get();
+        this.cpfAvaliador = ((IOString)io[1]).get();
         this.idTrabalho = ((IOString)io[2]).get();
 
         ioCriterios = ((IOArray)io[3]).get();

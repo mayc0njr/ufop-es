@@ -29,6 +29,8 @@
 
     <!--Select Activity-->
     <string name="searching">Buscando Trabalhos.</string>
+    <string name="notFoundTrabalho">Nenhum trabalho encontrado, tentando novamente (%1$d/%2$d).</string>
+    <string name="notFoundVoto">Voto não encontrado, tentando novamente (%1$d/%2$d).</string>
     <string name="exit">Sair</string>
 
     <!--Trabalho Activity-->
@@ -56,4 +58,11 @@
     <string name="textRelevancia">Capacidade de mostrar a relevância do trabalho apresentado</string>
     <string name="textCritica">Capacidade de avaliação crítica sobre o trabalho apresentado</string>
     <string name="textOutro">Outro:</string>
+
+    <!--AboutActivity-->
+    <string name="desenvolvedores">Desenvolvedores</string>
+    <string name="aline">Aline</string>
+    <string name="davidson">Davidson Nunes</string>
+    <string name="mariaLuisa">Maria Luisa de Souza Arcanjo Bastos</string>
+    <string name="maycon">Maycon Junior de Souza Miranda</string>
 </resources>

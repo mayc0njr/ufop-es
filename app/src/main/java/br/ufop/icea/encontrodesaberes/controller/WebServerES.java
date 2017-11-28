@@ -9,6 +9,7 @@ import java.util.Map;
 
 import br.com.albeom.nymeria.*;
 import br.ufop.icea.encontrodesaberes.model.Trabalho;
+import br.ufop.icea.encontrodesaberes.model.Voto;
 
 /**
  * Extende WebServer para fornecer a conexão com o Servidor.
@@ -23,6 +24,11 @@ public class WebServerES extends WebServer {
     private int authStatus;
     private int votoStatus;
     private static WebServerES instance;
+    private static final String LOGIN = "login.php";
+    private static final String VOTAR = "votar2.php";
+    private static final String OBTER_TRABALHOS = "listar_trabalhos.php";
+//    private static final String OBTER_VOTOS = "infovoto.php?idavaliador=50887578&idtrabalho=172";
+    private static final String OBTER_VOTOS = "infovoto.php?idavaliador=%1$d&idtrabalho=%2$d";
 
 
     /**
@@ -61,7 +67,7 @@ public class WebServerES extends WebServer {
         parametros.put("login", login);
         parametros.put("senha", senha);
 
-        postData("login.php", parametros, new WebServerCallback() {
+        postData(LOGIN, parametros, new WebServerCallback() {
             @Override
             public void executar(String w) {
                 Log.d("postData->Executar","Recebendo resposta: " + w);
@@ -129,7 +135,7 @@ public class WebServerES extends WebServer {
         votoStatus = AUTH_INIT;
         Log.d("Criterios", (String)parametros.get(Utils.CRITERIOS));
 
-        postData("votar2.php", parametros, new WebServerCallback() {
+        postData(VOTAR, parametros, new WebServerCallback() {
             @Override
             public void executar(String w) {
                 Log.d("postData->Executar","Recebendo resposta: " + w);
@@ -192,11 +198,28 @@ public class WebServerES extends WebServer {
      */
     public void obterTrabalhos(final ArrayList<Trabalho> ls, final WebServerCallback exec) {
         Log.d("WebServer", "obterTrabalhos");
-        obterString("listar_trabalhos.php", new WebServerCallback() {
+        obterString(OBTER_TRABALHOS, new WebServerCallback() {
             @Override
             public void executar(String w) {
                 Log.d("obterTrabalhos", w);
                 Xml.parseInArray(w, ls, Trabalho.class);
+                exec.executar(w);
+            }
+        });
+    }
+
+    public void obterVotos(final String[] fields, final WebServerCallback exec){
+        Log.d("WebServer", "obterVotos");
+//        http://www.albeom.com.br/ufop/encontrodesaberes/mobile/infovoto.php?idavaliador=50887578&idtrabalho=206
+        String votos = String.format(OBTER_VOTOS, Utils.getTrabalho().getAvaliador(), Utils.getTrabalho().getIdtrabalho());
+        obterString(votos, new WebServerCallback() {
+            @Override
+            public void executar(String w) {
+                Log.d("obterVotos", "obteve: " + w);
+                fields[0] = Xml.getItem(w, Utils.CRITERIOS, 0);
+                fields[1] = Xml.getItem(w, Utils.NOTAS, 0);
+                fields[2] = Xml.getItem(w, Utils.MELHOR_TRABALHO, 0) + ';' + Xml.getItem(w, Utils.MENCAO_HONROSA, 0);
+                fields[3] = Xml.getItem(w, Utils.JUSTIFICAR, 0);
                 exec.executar(w);
             }
         });

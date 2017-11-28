@@ -4,6 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="br.ufop.icea.encontrodesaberes.view.SelectActivity">
+    <include
+        layout="@layout/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,6 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="@dimen/loadingMargin"
         android:gravity="center"
         android:orientation="vertical">
         <ProgressBar
@@ -85,5 +91,4 @@
             android:textColor="@color/secondTextColor"/>
 
     </LinearLayout>
-
 </FrameLayout>

@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ import br.ufop.icea.encontrodesaberes.model.Trabalho;
  * Votado ou não-votado, exibe também o nome do usuário autenticado e um botão para sair do sistema.
  */
 public class SelectActivity extends TwoTapsBackAppCompatActivity {
-
+    private int tries, maxTries; //Conta quantas vezes tentou buscar trabalhos.
     WebServerES servidor; //Objeto responsável por tratar a comunicação com o Servidor.
     WebServerCallback processarTrabalhos; //Objeto responsável por definir o comportamento ao receber a resposta do servidor.
     ArrayList<Trabalho> trabalhos;
@@ -31,6 +32,8 @@ public class SelectActivity extends TwoTapsBackAppCompatActivity {
     TrabalhoAdapter adapter;
     TextView textSearching, textName;
     ProgressBar progressSearching;
+    Toast notFoundToast;
+    String notFoundText;
 
     private static final int TRABALHO_ACTIVITY = 1;
 
@@ -56,6 +59,9 @@ public class SelectActivity extends TwoTapsBackAppCompatActivity {
      * Inicializa as variaveis utilizadas na activity.
      */
     private void initializeValues(){
+        tries = 0;
+        maxTries = getResources().getInteger(R.integer.triesGet);
+        notFoundToast = Toast.makeText(this, R.string.notFoundTrabalho, Toast.LENGTH_SHORT);
         listTrabalhos = (ListView)findViewById(R.id.listTrabalhos);
         textSearching = (TextView)findViewById(R.id.textSearching);
         textName = (TextView)findViewById(R.id.textName);
@@ -65,6 +71,17 @@ public class SelectActivity extends TwoTapsBackAppCompatActivity {
         processarTrabalhos = new WebServerCallback() {
             @Override
             public void executar(String w) {
+                tries++;
+                if(trabalhos.size() == 0){
+                    if(tries < maxTries) {
+                        //formata a string para exibir o numero de tentativas.
+                        notFoundText = String.format(getString(R.string.notFoundTrabalho), tries, (maxTries-1));
+                        notFoundToast.setText(notFoundText);
+                        notFoundToast.show();
+                        servidor.obterTrabalhos(trabalhos, processarTrabalhos);
+                        return;
+                    }
+                }
                 progressSearching.setVisibility(View.GONE);
                 textSearching.setVisibility(View.GONE);
                 adapter = new TrabalhoAdapter(SelectActivity.this, trabalhos);

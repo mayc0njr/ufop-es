@@ -34,6 +34,7 @@
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name="br.com.albeom.nymeria.view.TwoTapsBackActivity" />
+        <activity android:name=".view.AboutActivity"></activity>
     </application>
 
 </manifest>

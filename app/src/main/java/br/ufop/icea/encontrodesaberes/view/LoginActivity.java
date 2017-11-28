@@ -116,7 +116,7 @@ public class LoginActivity extends Activity {
         waitingCallback = false;
         switch (authStatus) {
             case WebServerES.AUTH_OK:
-                authOk.show();
+//                authOk.show();
                 Intent it = new Intent(this, SelectActivity.class);
                 startActivity(it);
                 login.setText("");
