@@ -32,7 +32,7 @@ public class SelectActivity extends TwoTapsBackAppCompatActivity {
     TrabalhoAdapter adapter;
     TextView textSearching, textName;
     ProgressBar progressSearching;
-    Toast notFoundToast;
+    Toast notFoundToast, notFoundFinalToast;
     String notFoundText;
 
     private static final int TRABALHO_ACTIVITY = 1;
@@ -62,6 +62,7 @@ public class SelectActivity extends TwoTapsBackAppCompatActivity {
         tries = 0;
         maxTries = getResources().getInteger(R.integer.triesGet);
         notFoundToast = Toast.makeText(this, R.string.notFoundTrabalho, Toast.LENGTH_SHORT);
+        notFoundFinalToast = Toast.makeText(this, R.string.notFoundTrabalhoFinal, Toast.LENGTH_SHORT);
         listTrabalhos = (ListView)findViewById(R.id.listTrabalhos);
         textSearching = (TextView)findViewById(R.id.textSearching);
         textName = (TextView)findViewById(R.id.textName);
@@ -80,6 +81,9 @@ public class SelectActivity extends TwoTapsBackAppCompatActivity {
                         notFoundToast.show();
                         servidor.obterTrabalhos(trabalhos, processarTrabalhos);
                         return;
+                    }
+                    else{
+                        notFoundFinalToast.show();
                     }
                 }
                 progressSearching.setVisibility(View.GONE);

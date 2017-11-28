@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/activity_select">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,4 +25,12 @@
             android:layout_height="wrap_content"
             android:src="@drawable/icea_footer"/>
     </LinearLayout>
-</LinearLayout>
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="?attr/selectableItemBackground"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:layout_marginRight="@dimen/buttonMargin"-->
+        <!--android:text="@string/about"-->
+        <!--android:textColor="@color/secondTextColor"/>-->
+</FrameLayout>

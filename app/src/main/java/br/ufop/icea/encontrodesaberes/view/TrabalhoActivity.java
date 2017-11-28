@@ -48,7 +48,7 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
     ProgressBar connectingBar;
 //    SeekBar seekNota;
     RatingBar ratingNota;
-    Toast votoOk, votoError, notFoundToast;
+    Toast votoOk, votoError, notFoundToast, notFoundFinalToast, premiadoToast, comoToast, justificarToast;
     WebServerCallback processarVoto;
     WebServerCallback carregarVoto;
     Voto lastVote;
@@ -95,8 +95,12 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
      */
     private void initializeToasts(){
         notFoundToast = Toast.makeText(this, R.string.notFoundVoto, Toast.LENGTH_SHORT);
+        notFoundFinalToast = Toast.makeText(this, R.string.notFoundVotoFinal, Toast.LENGTH_SHORT);
         votoOk = Toast.makeText(this, R.string.textOk, Toast.LENGTH_SHORT);
         votoError = Toast.makeText(this, R.string.textError, Toast.LENGTH_SHORT);
+        premiadoToast = Toast.makeText(this, R.string.premiadoToast, Toast.LENGTH_SHORT);
+        comoToast = Toast.makeText(this, R.string.comoToast, Toast.LENGTH_SHORT);
+        justificarToast = Toast.makeText(this, R.string.justificarToast, Toast.LENGTH_SHORT);
     }
 
     /**
@@ -145,6 +149,21 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
         checkOutro = (CheckBox)findViewById(R.id.checkOutro);
         editOutro = (EditText) findViewById(R.id.editOutro);
 
+
+        checkMelhor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                    checkMencao.setChecked(false);
+            }
+        });
+        checkMencao.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                    checkMelhor.setChecked(false);
+            }
+        });
         checkOutro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -239,6 +258,22 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
             return;
         }
         hideKeyboard(v);
+        int idradio = radioPremiado.getCheckedRadioButtonId();
+        if(idradio != R.id.radioNao && idradio != R.id.radioSim){
+            premiadoToast.show();
+            return;
+        }
+        if(idradio == R.id.radioSim && !checkMelhor.isChecked() && !checkMencao.isChecked()){
+            comoToast.show();
+            return;
+        }
+        if((checkMelhor.isChecked() || checkMencao.isChecked())
+                && !checkClareza.isChecked() && !checkPesquisador.isChecked()
+                && !checkRelevancia.isChecked() && !checkCritica.isChecked()
+                && !(checkOutro.isChecked() && editOutro.length() > 0)){
+            justificarToast.show();
+            return;
+        }
         connectingText.setVisibility(View.VISIBLE);
         connectingBar.setVisibility(View.VISIBLE);
         int idTrabalho = Utils.getTrabalho().getIdtrabalho();
@@ -298,6 +333,9 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
             generateSeekbars();
             return; //Trabalho nao foi votado.
         }
+        connectingText.setVisibility(View.VISIBLE);
+        connectingBar.setVisibility(View.VISIBLE);
+        waitingCallback = true;
         servidor.obterVotos(fields, carregarVoto);
     }
 
@@ -348,6 +386,13 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
         }
     }
 
+    private void emptyFields(){
+        this.como = new boolean[2];
+        this.justificar = new boolean[5];
+        this.criterios = trabalho.getItensSplitted();
+        this.notas = new int[criterios.length];
+        this.ratingVotos = new int[notas.length];
+    }
 
     private boolean fillFields(String[] fields){
         this.como = new boolean[2];
@@ -425,7 +470,12 @@ public class TrabalhoActivity extends TwoTapsBackAppCompatActivity {
                 servidor.obterVotos(fields, carregarVoto);
                 return;
             }
+            else{
+                notFoundFinalToast.show();
+                emptyFields();
+            }
         }
+        waitingCallback = false;
         connectingText.setVisibility(View.GONE);
         connectingBar.setVisibility(View.GONE);
         generateSeekbars();

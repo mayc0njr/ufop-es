@@ -118,6 +118,8 @@ public class Voto implements Comparable<Voto>{
             }
             sb.deleteCharAt(sb.length()-1);
             map.put(Utils.JUSTIFICAR, sb.toString());
+        }else{
+            map.put(Utils.COMO, ";");
         }
         return map;
     }
