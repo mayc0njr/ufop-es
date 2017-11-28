@@ -4,17 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/activityVerticalMargin"
-    android:paddingBottom="@dimen/activityVerticalMargin"
+    android:paddingTop="@dimen/activityAboutVerticalMargin"
+    android:paddingBottom="@dimen/activityAboutVerticalMargin"
     android:paddingLeft="@dimen/activityHorizontalMargin"
     android:paddingRight="@dimen/activityHorizontalMargin"
     android:background="@drawable/ufop_watermark"
     tools:context="br.ufop.icea.encontrodesaberes.view.AboutActivity">
+    <LinearLayout
+        android:id="@+id/layoutAbout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/aboutLogoMargin"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textAbout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about1"
+            android:textSize="@dimen/tituloSize"
+            android:textColor="@color/secondTextColor"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/textAbout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about2"
+            android:textSize="@dimen/tituloSize"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/textAbout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about3"
+            android:layout_marginLeft="@dimen/headerSeparator"
+            android:textSize="@dimen/tituloSize"
+            android:textColor="@color/secondTextColor"
+            android:textStyle="bold"/>
+    </LinearLayout>
     <ImageView
         android:id="@+id/imageIcea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_below="@id/layoutAbout"
         android:src="@drawable/icea_big_logo"/>
     <TextView
         android:id="@+id/textIcea"
@@ -23,7 +58,7 @@
         android:layout_below="@id/imageIcea"
         android:layout_centerHorizontal="true"
         android:text="@string/icea"
-        android:layout_marginBottom="@dimen/aboutMarginLogo"
+        android:layout_marginBottom="@dimen/aboutLogoMargin"
         android:textColor="@color/secondTextColor"
         android:textAlignment="center"/>
     <TextView
@@ -69,10 +104,61 @@
         android:textColor="@color/secondTextColor"
         android:text="@string/maycon"/>
     <LinearLayout
-        android:id="@+id/layoutUfop"
+        android:id="@+id/layoutGeorge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textMaycon"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textGeorge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/headerSeparator"
+            android:textColor="@color/secondTextColor"
+            android:text="@string/george"/>
+        <TextView
+            android:id="@+id/textGeorgeOrientador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/secondTextColor"
+            android:text="@string/orientador"
+            android:textStyle="bold"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layoutVinicius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutGeorge"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textVinicius"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/headerSeparator"
+            android:textColor="@color/secondTextColor"
+            android:text="@string/vinicius"/>
+        <TextView
+            android:id="@+id/textViniciusOrientador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/secondTextColor"
+            android:text="@string/orientador"
+            android:textStyle="bold"/>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/imageAlbeom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/albeom_logo"/>
+    <LinearLayout
+        android:id="@+id/layoutUfop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/imageAlbeom"
         android:layout_alignParentLeft="true"
         android:gravity="center_horizontal"
         android:orientation="vertical">
@@ -93,7 +179,7 @@
         android:id="@+id/layoutPropp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/imageAlbeom"
         android:layout_alignParentRight="true"
         android:orientation="vertical">
         <ImageView
@@ -114,7 +200,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/layoutPropp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/aboutMarginLogo"
+        android:layout_marginBottom="@dimen/aboutLogoMargin"
         android:text="@string/apoio"
         android:textStyle="bold"
         android:textSize="@dimen/aboutSubSize"

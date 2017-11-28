@@ -32,7 +32,6 @@
     <string name="notFoundTrabalho">Nenhum trabalho encontrado, tentando novamente (%1$d/%2$d).</string>
     <string name="notFoundTrabalhoFinal">Nenhum trabalho encontrado, reinicie a aplicação, ou fale com algum administrador.</string>
     <string name="exit">Sair</string>
-    <string name="about">SOBRE</string>
 
     <!--Trabalho Activity-->
     <string name="waiting">Aguardando o Servidor...</string>
@@ -71,6 +70,9 @@
 
     <!--AboutActivity-->
     <string name="desenvolvedores">Desenvolvedores</string>
+    <string name="orientador">(Orientador)</string>
+    <string name="vinicius">Vinicius Mota</string>
+    <string name="george">George Fonseca</string>
     <string name="aline">Aline Marina Lopes</string>
     <string name="davidson">Davidson Esteves Nunes</string>
     <string name="mariaLuisa">Maria Luisa de Souza Arcanjo Bastos</string>
@@ -78,5 +80,9 @@
     <string name="propp">Pró-Reitoria de Pesquisa\ne Pós-Graduação</string>
     <string name="icea">Instituto de Ciências Exatas e Aplicadas\n Campus João Monlevade</string>
     <string name="apoio">Apoio</string>
+    <string name="about">SOBRE</string>
+    <string name="about1">Sis</string>
+    <string name="about2">Votos</string>
+    <string name="about3">Encontro de Saberes</string>
 
 </resources>

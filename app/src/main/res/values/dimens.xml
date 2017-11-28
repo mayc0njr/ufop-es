@@ -56,5 +56,7 @@
     <dimen name="aboutSubSize">18sp</dimen>
 
     <!--margin size for about logo-->
-    <dimen name="aboutMarginLogo">16sp</dimen>
+    <dimen name="aboutLogoMargin">4dp</dimen>
+    <!--Default size of Vertical Margin of activities-->
+    <dimen name="activityAboutVerticalMargin">8dp</dimen>
 </resources>

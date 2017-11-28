@@ -154,4 +154,9 @@ public class SelectActivity extends TwoTapsBackAppCompatActivity {
             Utils.saveVotes();
         }
     }
+
+    public void goToAbout(View v){
+        Intent it = new Intent(this, AboutActivity.class);
+        startActivity(it);
+    }
 }

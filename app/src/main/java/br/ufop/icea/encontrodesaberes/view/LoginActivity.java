@@ -130,4 +130,9 @@ public class LoginActivity extends Activity {
                 break;
         }
     }
+
+    public void goToAbout(View v){
+        Intent it = new Intent(this, AboutActivity.class);
+        startActivity(it);
+    }
 }
