@@ -147,18 +147,11 @@
             android:text="@string/orientador"
             android:textStyle="bold"/>
     </LinearLayout>
-    <ImageView
-        android:id="@+id/imageAlbeom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/albeom_logo"/>
     <LinearLayout
         android:id="@+id/layoutUfop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/imageAlbeom"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:gravity="center_horizontal"
         android:orientation="vertical">
@@ -179,7 +172,7 @@
         android:id="@+id/layoutPropp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/imageAlbeom"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:orientation="vertical">
         <ImageView
