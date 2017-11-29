@@ -24,10 +24,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icea_footer"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/albeom_footer"/>
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
