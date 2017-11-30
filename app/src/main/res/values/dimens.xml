@@ -20,6 +20,14 @@
     <!--Width for border of listview's rows-->
     <dimen name="rowBorderWidth">2dp</dimen>
 
+    <!--Width for footer divider padding-->
+    <dimen name="footerDividerPadding">10dp</dimen>
+    <!--Height for footer border-->
+    <dimen name="footerBorder">10dp</dimen>
+
+    <!--Loading Bottom Margin-->
+    <dimen name="loadingMargin">60dp</dimen>
+
     <!--text size for trab title.-->
     <dimen name="tituloSize">20sp</dimen>
 
@@ -43,4 +51,12 @@
 
     <!--Margin between button and componentes on TrabalhoActivity-Criterios-->
     <dimen name="buttonMargin">4dp</dimen>
+
+    <!--text size for about subtitles-->
+    <dimen name="aboutSubSize">18sp</dimen>
+
+    <!--margin size for about logo-->
+    <dimen name="aboutLogoMargin">4dp</dimen>
+    <!--Default size of Vertical Margin of activities-->
+    <dimen name="activityAboutVerticalMargin">8dp</dimen>
 </resources>

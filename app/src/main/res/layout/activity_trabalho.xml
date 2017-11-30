@@ -89,10 +89,7 @@
                 android:id="@+id/layoutCriterios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:divider="@drawable/invisible_drawable"
-                android:dividerPadding="@dimen/seeksMargin"
-                android:orientation="vertical"
-                android:showDividers="middle"/>
+                android:orientation="vertical"/>
             <View
                 android:id="@+id/viewDividerVotos"
                 android:layout_width="match_parent"

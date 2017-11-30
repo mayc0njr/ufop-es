@@ -2,9 +2,11 @@ package br.ufop.icea.encontrodesaberes.controller;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,11 +33,21 @@ public class Utils {
     public static String ID_AVALIADOR = "idavaliador";
     public static String ID_TRABALHO = "idtrabalho";
     public static String CRITERIOS = "criterios";
-    public static String NOTA = "nota";
+    public static String NOTAS = "notas";
     public static String PREMIADO = "premiado";
     public static String COMO = "como";
+    public static String MELHOR_TRABALHO="melhor";
+    public static String MENCAO_HONROSA="mencao";
     public static String JUSTIFICAR = "justificar";
     public static String OUTRO = "outro";
+
+    public static int CAMPO_CRITERIOS = 0;
+    public static int CAMPO_NOTAS = 1;
+    public static int CAMPO_COMO = 2;
+    public static int CAMPO_JUSTIFICAR = 3;
+    public static int VOTOS_CAMPOS = 4;
+
+    public static String CAMPO_SEPARATOR = ";";
 
     /** Endereco do Servidor. */
     public static final String SERVER_ADDRESS = "http://albeom.com.br/ufop/encontrodesaberes/mobile/";
@@ -263,5 +275,24 @@ public class Utils {
             }
         }
         savedVotes.add(v);
+    }
+
+    /**
+     * Display the toast, for a custom duration.
+     * The duration should be less than default toast duration.
+     * e.g. A 500ms custom duration, can be a Toast builted with 'LENGTH_SHORT' parameter,
+     * but a 5000ms custom duration for example, should use a 'LENGTH_LONG' parameter.
+     * @param t Toasted to be displayed
+     * @param duration duration on screen.
+     */
+    public static void customShow(final Toast t, long duration){
+        t.show();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                t.cancel();
+            }
+        }, duration);
     }
 }

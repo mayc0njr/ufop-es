@@ -7,6 +7,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import br.ufop.icea.encontrodesaberes.R;
+import br.ufop.icea.encontrodesaberes.controller.Utils;
 
 public class TwoTapsBackActivity extends Activity {
 
@@ -34,7 +35,8 @@ public class TwoTapsBackActivity extends Activity {
         long actual = Calendar.getInstance().getTimeInMillis();
         if (actual - exitRequest > exitTime) {
             exitRequest = actual;
-            exitPress.show();
+//            exitPress.show();
+            Utils.customShow(exitPress, exitTime);
             exitOK = false;
             return;
         }

@@ -116,7 +116,7 @@ public class LoginActivity extends Activity {
         waitingCallback = false;
         switch (authStatus) {
             case WebServerES.AUTH_OK:
-                authOk.show();
+//                authOk.show();
                 Intent it = new Intent(this, SelectActivity.class);
                 startActivity(it);
                 login.setText("");
@@ -129,5 +129,10 @@ public class LoginActivity extends Activity {
                 authError.show();
                 break;
         }
+    }
+
+    public void goToAbout(View v){
+        Intent it = new Intent(this, AboutActivity.class);
+        startActivity(it);
     }
 }
